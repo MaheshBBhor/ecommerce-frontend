@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 // Async Thunks for API calls
 export const login = createAsyncThunk(
   "auth/login",
@@ -12,7 +13,7 @@ export const login = createAsyncThunk(
         },
       };
       const { data } = await axios.post(
-        "/api/auth/login", // This will be proxied to backend
+        `${BACKEND_URL}/api/auth/login`, // This will be proxied to backend
         { email, password },
         config
       );
@@ -38,7 +39,7 @@ export const register = createAsyncThunk(
         },
       };
       const { data } = await axios.post(
-        "/api/auth/register", // This will be proxied to backend
+        `${BACKEND_URL}/api/auth/register`, // This will be proxied to backend
         { name, email, password },
         config
       );

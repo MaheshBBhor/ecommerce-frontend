@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 export const listProducts = createAsyncThunk(
   "product/listProducts",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get("/api/products");
+      const { data } = await axios.get(`${BACKEND_URL}/api/products`);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -31,7 +32,11 @@ export const createProduct = createAsyncThunk(
         },
       };
 
-      const { data } = await axios.post("/api/products", {}, config); // Empty object for default product
+      const { data } = await axios.post(
+        `${BACKEND_URL}/api/products`,
+        {},
+        config
+      ); // Empty object for default product
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -57,7 +62,7 @@ export const deleteProduct = createAsyncThunk(
         },
       };
 
-      await axios.delete(`/api/products/${id}`, config);
+      await axios.delete(`${BACKEND_URL}/api/products/${id}`, config);
       return id; // Return ID to remove from state
     } catch (error) {
       return rejectWithValue(
