@@ -3,6 +3,7 @@ import axios from "axios";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 // Async Thunks for API calls
+console.log("BACKEND_URL", BACKEND_URL);
 export const login = createAsyncThunk(
   "auth/login",
   async ({ email, password }, { rejectWithValue }) => {
